@@ -1,7 +1,7 @@
 # DeletedFilePersistence
 Two Python 3.x programs to facilitate the study of deleted file persistence (decay). This is prototype code and configuration is done via settings in the code (noted near the top of each program).
 
-Requires: idifference2.py (which requires fiwalk and dfxml)
+Requires: idifference2.py (which requires fiwalk and dfxml; see https://github.com/simsong/dfxml and https://github.com/simsong/dfxml/blob/master/python/idifference2.py)
 
 adiff.py: (Run this first) Takes a series of raw hard disk images from a single system, finds deleted files between images 0 and 1, then tracks contents of those deleted files in images 1...N. Data is stored in a local sqlite3 database.  
   Configuration parameters (see "User.set vars" in the source):  
