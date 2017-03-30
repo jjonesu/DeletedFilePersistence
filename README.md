@@ -3,11 +3,11 @@ Two Python 3.x programs to facilitate the study of deleted file persistence (dec
 
 Requires: idifference2.py (which requires fiwalk and dfxml; see https://github.com/simsong/dfxml and https://github.com/simsong/dfxml/blob/master/python/idifference2.py)
 
-(1) adiff.py: (Run this first) Takes a series of raw hard disk images from a single system, device, or media, finds deleted files between images 0 and 1, then tracks contents of those deleted files in images 1...N. Data is stored in a local sqlite3 database.  
+(1) adiff.py: (Run this first) Takes a series of raw forensic images from a single system, device, or media, finds deleted files between images 0 and 1, then tracks contents of those deleted files in images 1...N. Data is stored in a local sqlite3 database.  
   Configuration parameters (see "User-set vars" in the source):  
     ### User-set vars  
     IDIFF2_PATH='/path_to/dfxml/python/idifference2.py' # full path to idifference2.py  
-    SECTOR_SIZE=512 # 512,4096,... use imaged drive sector size  
+    SECTOR_SIZE=512 # 512,4096,... use imaged media sector size  
     IMAGE_LIST=['image0.img','image1.img',...] # a Python list of image names; they will be processed in this order (this matters...)  
     HAVE_TEMP_DFXML=True # True if you already have a temp.dfxml file (idiff output for images 0-1), otherwise False; saves time  
 
