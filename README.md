@@ -4,7 +4,19 @@
 
 Last Updated: 6-5-2026
 
-Original version: 5-29-2026
+Original version: 9-16-2016
+
+
+
+##### Citation
+
+
+
+If you use this code in published work, please cite:
+
+
+
+Jones, James H., and Tahir M. Khan. "A method and implementation for the empirical study of deleted file persistence in digital devices and media." 2017 IEEE 7th Annual Computing and Communication Workshop and Conference (CCWC). IEEE, 2017.
 
 
 
