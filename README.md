@@ -99,7 +99,7 @@ Tested on Ubuntu 24.04.3 LTS in a WSL2 environment on Windows 11. Should work on
 
 * (decant) $ sudo apt install sleuthkit
 * (decant) $ sudo apt install git
-* (decant) $ pip install git+https://github.com/dfxml-working-group/dfxml\_python.git
+* `(decant) $ pip install git+https://github.com/dfxml-working-group/dfxml\_python.git`
 * (decant) $ pip install numpy
 * (decant) $ pip install matplotlib
 
