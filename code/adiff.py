@@ -73,20 +73,19 @@ def hash_sector_data(data):
 def find_deleted(img1_path, img2_path):
 
     if not HAVE_TEMP_DFXML:
-        print('Running idifference2.py...')
-        cmd = 'python3 ' + IDIFF2_PATH + ' -x temp.dfxml ' + img1_path + ' ' + img2_path
-        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE, universal_newlines=True)
-        process.stdout.read()
-        stderr_output = process.stderr.read()
-        process.wait()
-        if stderr_output:
-            filtered = '\n'.join(line for line in stderr_output.splitlines()
-                                 if not (line.startswith('WARNING:') or line.startswith('INFO:')))
-            if filtered.strip():
-                print('idifference2.py stderr:\n' + filtered)
-        if process.returncode != 0:
-            print('ERROR: idifference2.py exited with code ' + str(process.returncode))
+        print('Running idifference2.py... (output in idifference2.log)')
+        with open('idifference2.log', 'w') as log:
+            result = subprocess.run(
+                [sys.executable, IDIFF2_PATH, '-x', 'temp.dfxml', img1_path, img2_path],
+                stdout=log, stderr=subprocess.STDOUT)
+        # show only non-INFO/WARNING lines, as before
+        with open('idifference2.log') as log:
+            filtered = [l.rstrip() for l in log
+                        if not (l.startswith('WARNING:') or l.startswith('INFO:'))]
+        if any(filtered):
+            print('idifference2.py output:\n' + '\n'.join(l for l in filtered if l))
+        if result.returncode != 0:
+            print('ERROR: idifference2.py exited with code ' + str(result.returncode))
             sys.exit(1)
         if not os.path.isfile('temp.dfxml'):
             print('ERROR: temp.dfxml was not created by idifference2.py')
