@@ -70,6 +70,24 @@ def hash_sector_data(data):
     ''' Return hex-string MD5 of raw bytes. '''
     return hashlib.md5(data).hexdigest()
 
+def idiff_errors(log_path):
+    ''' Return error lines from the idifference2.py log: lines logged at
+        ERROR/CRITICAL level, plus any Python traceback (through to its end). '''
+    errors = []
+    in_traceback = False
+    with open(log_path, errors='replace') as log:
+        for line in log:
+            line = line.rstrip()
+            if line.startswith('Traceback (most recent call last)'):
+                in_traceback = True
+            if in_traceback or line.startswith(('ERROR', 'CRITICAL')):
+                errors.append(line)
+                # a traceback ends with an unindented "SomeError: msg" line
+                if in_traceback and line and not line[0].isspace() \
+                        and not line.startswith('Traceback'):
+                    in_traceback = False
+    return errors
+
 def find_deleted(img1_path, img2_path):
 
     if not HAVE_TEMP_DFXML:
@@ -78,14 +96,14 @@ def find_deleted(img1_path, img2_path):
             result = subprocess.run(
                 [sys.executable, IDIFF2_PATH, '-x', 'temp.dfxml', img1_path, img2_path],
                 stdout=log, stderr=subprocess.STDOUT)
-        # show only non-INFO/WARNING lines, as before
-        with open('idifference2.log') as log:
-            filtered = [l.rstrip() for l in log
-                        if not (l.startswith('WARNING:') or l.startswith('INFO:'))]
-        if any(filtered):
-            print('idifference2.py output:\n' + '\n'.join(l for l in filtered if l))
+        # all idifference2.py output stays in the log; echo only errors to console
+        errors = idiff_errors('idifference2.log')
+        if errors:
+            print('idifference2.py errors (full output in idifference2.log):\n'
+                  + '\n'.join(errors), file=sys.stderr)
         if result.returncode != 0:
-            print('ERROR: idifference2.py exited with code ' + str(result.returncode))
+            print('ERROR: idifference2.py exited with code ' + str(result.returncode)
+                  + ' (see idifference2.log)', file=sys.stderr)
             sys.exit(1)
         if not os.path.isfile('temp.dfxml'):
             print('ERROR: temp.dfxml was not created by idifference2.py')
