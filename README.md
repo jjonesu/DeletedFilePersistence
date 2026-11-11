@@ -1,42 +1,42 @@
-# DECay ANalysis Tool (DECANT)
+# **DECay ANalysis Tool (DECANT)**
 
 Last Updated: 10-8-2026
 
 Original version: 9-16-2016
 
-##### Citation
+## **Citation**
 
 If you use this code in published work, please cite:
 
 Jones, James H., and Tahir M. Khan. "A method and implementation for the empirical study of deleted file persistence in digital devices and media." 2017 IEEE 7th Annual Computing and Communication Workshop and Conference (CCWC). IEEE, 2017.
 
-##### Overview
+## **Overview**
 
 Code generates sector-level file decay data and visualizations from a set of sequential disk (media) images. Tested on FAT and NTFS filesystems; others may work but have not been tested.
 
 ###### 
 
-###### config.ini
+### **config.ini**
 
 * Contains runtime parameters for adiff.py and trace\_file.py.
 
-###### adiff.py
+### **adiff.py**
 
 * Deleted files are detected between images 0 and 1; the contents of the sectors of these files are tracked through the image set via md5 hashes. idifference2.py (part of fiwalk) is used to detect deleted files and writes results to a temporary dfxml file. Deleted sector information is written to a local sqlite3 database, which is used by trace_file.py.
 
-###### trace\_file.py
+### **trace\_file.py**
 
 * Prompts the user to select a single deleted file to process or process all files in the database. Reads from the database to compute decay data and optionally (see config.ini) outputs data files and vizualizations.
 
-###### cleanup.sh
+### **cleanup.sh**
 
 * Simple script to remove temporary and output files from a directory; recommended when re-running an analysis.
 
-##### Installation
+## **Installation**
 
 Tested on Ubuntu 24.04.3 LTS in a WSL2 environment on Windows 11. Should work on any recent Ubuntu install.
 
-###### Update and install latest Python:
+### **Update and install latest Python:**
 
 * $ sudo apt update
 * $ sudo apt install software-properties-common
@@ -45,19 +45,19 @@ Tested on Ubuntu 24.04.3 LTS in a WSL2 environment on Windows 11. Should work on
 * $ sudo apt install python3.13
 * $ sudo apt install python3.13-venv python3.13-dev
 
-###### Create and activate virtual environment:
+### **Create and activate virtual environment:**
 
 * $ python3.13 -m venv decant
 * $ source decant/bin/activate
 * (decant) $ pip install --upgrade pip
 * (decant) $ mkdir code; cd code
 
-###### Download code:
+### **Download code:**
 
 * https://github.com/jjonesu/DeletedFilePersistence
 * put adiff.py, cleanup.sh, config.ini, trace\_file.py, in \~/code directory
 
-###### Install necessary packages:
+### **Install necessary packages:**
 
 * (decant) $ sudo apt install sleuthkit
 * (decant) $ sudo apt install git
@@ -65,7 +65,7 @@ Tested on Ubuntu 24.04.3 LTS in a WSL2 environment on Windows 11. Should work on
 * (decant) $ pip install numpy
 * (decant) $ pip install matplotlib
 
-##### Usage
+## **Usage**
 
 Place the disk (media) images in an accessible directory.
 
@@ -113,7 +113,7 @@ Run trace\_file.py from this directory (the local config.ini file will be used):
   * %20251113%  # all files with this string (e.g., a date) in the full path/filename
   * Camera00/event/%.jpg  # .jpg files in a specific directory
 
-Examples:
+### Examples:
 
 * Run both components in one step (assuming a local config.ini file has been prepared) and process all files:
   
@@ -133,7 +133,7 @@ Examples:
 
 * Sample data is described and linked in the AudioData folder.
 
-##### Notes
+## **Notes**
 
 If you want to re-run adiff.py, recommend running cleanup.sh first; code should check and reset anyway, but best to run cleanup.sh.
 
@@ -151,4 +151,4 @@ To leave the virtual environment:
 * (decant) $ deactivate
 * $
 
-##### End
+# **End**
