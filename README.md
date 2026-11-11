@@ -1,6 +1,6 @@
 # **DECay ANalysis Tool (DECANT)**
 
-Last Updated: 11-10-2026
+Last Updated: 11-11-2026
 
 Original version: 9-16-2016
 
@@ -70,11 +70,15 @@ Tested on Ubuntu 24.04.3 LTS in a WSL2 environment on Windows 11. Should work on
 Place the disk (media) images in an accessible directory.
 
 * This directory may be the same as the dedicated directory in the next step but does not need to be.
-* If not, be sure to use full paths when listing the images in config.ini.
+* If not, be sure to use full paths when listing the images in config.ini. No quotes are needed around paths with spaces - the environment will handle this.
 
 Copy cleanup.sh and the template config.ini file from \~/code to a dedicated directory for these images and edit config.ini accordingly.
 
-Run adiff.py from this directory (the local config.ini file will be used):
+Activate the virtual environment:
+
+- $ source ~/decant/bin/activate
+
+Run adiff.py from the dedicated directory (the local config.ini file will be used):
 
 * (decant) $ python3 \~/code/adiff.py
 * Run should create temp.dfxml and deleted.db in the local directory.
