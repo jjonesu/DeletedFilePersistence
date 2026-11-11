@@ -1,6 +1,6 @@
 # **DECay ANalysis Tool (DECANT)**
 
-Last Updated: 10-8-2026
+Last Updated: 11-10-2026
 
 Original version: 9-16-2016
 
